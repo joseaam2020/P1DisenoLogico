@@ -1,4 +1,5 @@
 import tkinter as tk 
+from basesnum import *
 
 def printParidad():
     print(paridad.get())
