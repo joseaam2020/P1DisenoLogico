@@ -7,7 +7,13 @@ def printParidad():
 
 def iniciarTabla(dimensiones,tabla):
     """
-    Dimensiones es una dupla (x,y) con el tamaño de la tabla
+    Añade tkinter.entries al objeto indicado
+
+    Dimensiones es una dupla (x,y) con el tamaño de la tabla.
+    Tabla es un objeto de Tkinter que sea padre de los tkinter.Entry formados
+    (debe ser objeto tkinter.Frame). 
+
+    Devuelve una matriz con todas las entries creadas en la tabla.
     """
     matriz = []
     for x in range(dimensiones[0]):
@@ -23,13 +29,21 @@ def iniciarTabla(dimensiones,tabla):
 def entradaDatoTabla(posicion,dato,matriz):
     """
     Posicion es una dupla (x,y) donde agregar el dato
+    El dato es un string o int para agregar al entry
+    Matriz es una matriz de entries creada por iniciarTabla
+    
+    No devuelve nada
     """
     entry = matriz[posicion[0]][posicion[1]]
     print(entry)
     entry.configure(state="normal")
     entry.insert(0,dato)
     entry.configure(state="disabled")
-def setValor():
+
+def serValorT1():
+    """
+    Coloca los valores de las conversiones en la tabla 1 y entrega la señal a crearSeñal
+    """
     hex = numeroBinarioHexadecimal.get()
     print(hex)
 
@@ -53,6 +67,11 @@ def setValor():
         messagebox.showwarning(title="Error de ingreso", message="Por favor ingresar numero hexadecimal de la forma 000 a FFF")
     numeroBinarioHexadecimal.delete(0,'end')
 
+    crearSeñal(bin,lsignal)
+
+def crearSeñal(bin,label):
+    print("Aun no hay nada XD")
+    
 #Creacion ventana
 root = tk.Tk()
 root.title("Proyecto 1 Diseño Logico")
@@ -61,7 +80,7 @@ root.resizable(False,False)
 #Creacion ingreso de numero
 Lingreso = tk.Label(root,text ="Ingrese numero binario: ")
 numeroBinarioHexadecimal = tk.Entry(root)
-Bingreso = tk.Button(root,text="Ingresar",command=setValor)
+Bingreso = tk.Button(root,text="Ingresar",command=serValorT1)
 Lingreso.grid(column=0,row=0)
 numeroBinarioHexadecimal.grid(column=1,row=0)
 Bingreso.grid(column=2,row=0)
