@@ -1,6 +1,7 @@
 import tkinter as tk 
-from tkinter import messagebox
+from tkinter import END, messagebox
 from basesnum import *
+from paridad import *
 
 def printParidad():
     print(paridad.get())
@@ -37,6 +38,7 @@ def entradaDatoTabla(posicion,dato,matriz):
     entry = matriz[posicion[0]][posicion[1]]
     print(entry)
     entry.configure(state="normal")
+    entry.delete(0,END)
     entry.insert(0,dato)
     entry.configure(state="disabled")
 
@@ -59,6 +61,8 @@ def serValorT1():
         entradaDatoTabla((1,2),dec,matrizT1)
         entradaDatoTabla((1,3),bin,matrizT1)
         entradaDatoTabla((1,4),octl,matrizT1)
+
+        calculate_parity_bits(bin)
 
     except: 
         warning = True
