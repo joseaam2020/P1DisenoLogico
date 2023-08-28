@@ -11,7 +11,7 @@ def table(input_number):
     global t1
     t1 = ventana = tk.Tk()
     
-    
+    ventana.title("Tabla de Paridad")
     # Crear la tabla
     tabla = tk.Frame(ventana)
     tabla.pack()

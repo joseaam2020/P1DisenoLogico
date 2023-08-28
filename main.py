@@ -62,7 +62,7 @@ def serValorT1():
         entradaDatoTabla((1,3),bin,matrizT1)
         entradaDatoTabla((1,4),octl,matrizT1)
 
-        calculate_parity_bits(bin)
+        calculate_parity_bits(bin, paridad.get())
 
     except: 
         warning = True

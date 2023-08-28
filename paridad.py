@@ -1,4 +1,3 @@
-import tkinter as tk
 from tabla import *
 
 
@@ -9,7 +8,7 @@ def cambio_bit(binario, posicion):
     binstring[pos] = str(int(not int(binstring[pos])))
     return binstring
 
-def calculate_parity_bits(input_string, paridad = "Par"):
+def calculate_parity_bits(input_string, paridad = 2):
     # Convierte la cadena de entrada en una lista de números enteros
     input_list = [int(bit) for bit in input_string]
 
@@ -21,7 +20,7 @@ def calculate_parity_bits(input_string, paridad = "Par"):
 
     # Si selecciona paridad impar
     
-    if paridad == "Impar":
+    if paridad == 1:
         p1 = 1 - p1
         p2 = 1 - p2
         p3 = 1 - p3
