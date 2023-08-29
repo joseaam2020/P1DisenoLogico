@@ -72,7 +72,7 @@ root.title("Proyecto 1 Diseño Logico")
 root.resizable(False,False)
 
 #Creacion ingreso de numero
-Lingreso = tk.Label(root,text ="Ingrese numero binario: ")
+Lingreso = tk.Label(root,text ="Ingrese numero hexadecimal: ")
 numeroBinarioHexadecimal = tk.Entry(root)
 Bingreso = tk.Button(root,text="Ingresar",command=serValorT1)
 Lingreso.grid(column=0,row=0)
