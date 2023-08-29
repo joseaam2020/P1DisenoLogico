@@ -2,9 +2,7 @@ import tkinter as tk
 from tkinter import END, messagebox
 from basesnum import *
 from paridad import *
-
-def printParidad():
-    print(paridad.get())
+from signalNRZI import *
 
 def iniciarTabla(dimensiones,tabla):
     """
@@ -20,7 +18,6 @@ def iniciarTabla(dimensiones,tabla):
     for x in range(dimensiones[0]):
         list = []
         for y in range(dimensiones[1]):
-            #print(x,y,)
             newEntry = tk.Entry(tabla,width=60//dimensiones[0],state="disabled",justify="center")
             newEntry.grid(column=x,row=y)
             list.append(newEntry)
@@ -36,7 +33,6 @@ def entradaDatoTabla(posicion,dato,matriz):
     No devuelve nada
     """
     entry = matriz[posicion[0]][posicion[1]]
-    print(entry)
     entry.configure(state="normal")
     entry.delete(0,END)
     entry.insert(0,dato)
@@ -47,34 +43,28 @@ def serValorT1():
     Coloca los valores de las conversiones en la tabla 1 y entrega la señal a crearSeñal
     """
     hex = numeroBinarioHexadecimal.get()
-    print(hex)
-
     warning = False
     if len(hex) != 3:
         warning = True
     try: 
+        if warning:
+            raise Exception
         dec = hex2dec(hex,2)
         bin = dec2bin(dec,'')
         octl = dec2oct(dec,'')
-        print(dec, bin, octl)
         entradaDatoTabla((1,1),hex,matrizT1)
         entradaDatoTabla((1,2),dec,matrizT1)
         entradaDatoTabla((1,3),bin,matrizT1)
         entradaDatoTabla((1,4),octl,matrizT1)
+        crearSeñal(Csignal,bin)
 
         calculate_parity_bits(bin, paridad.get())
-
     except: 
         warning = True
-
+    
     if warning: 
         messagebox.showwarning(title="Error de ingreso", message="Por favor ingresar numero hexadecimal de la forma 000 a FFF")
     numeroBinarioHexadecimal.delete(0,'end')
-
-    crearSeñal(bin,lsignal)
-
-def crearSeñal(bin,label):
-    print("Aun no hay nada XD")
     
 #Creacion ventana
 root = tk.Tk()
@@ -104,9 +94,9 @@ T1.grid(column=0,row=1,columnspan=3)
 
 #Creacion señal
 LNZRI = tk.Label(root,text ="Señal NRZI: ", anchor="center")
-lsignal = tk.Label(root, text="[insertar imagen de señal]",anchor="center")
+Csignal = tk.Canvas(root,bg="white",width=400,height=200)
 LNZRI.grid(column=0,row=4,columnspan=3)
-lsignal.grid(column=0,row=5,columnspan=3)
+Csignal.grid(column=0,row=5,columnspan=3)
 
 
 
@@ -115,8 +105,8 @@ Lparidad = tk.Label(root,text ="Paridad: ")
 Lparidad.grid(column=0,row=6,rowspan=2)
 paridad = tk.IntVar()
 paridad.set(2)
-Rparpar = tk.Radiobutton(root, text="Paridad par", variable=paridad, value=2,command=printParidad)
-Rparimpar = tk.Radiobutton(root, text="Paridad impar", variable=paridad, value=1,command=printParidad)
+Rparpar = tk.Radiobutton(root, text="Paridad par", variable=paridad, value=2)
+Rparimpar = tk.Radiobutton(root, text="Paridad impar", variable=paridad, value=1)
 Rparpar.grid(column=1,row=6,columnspan=2)
 Rparimpar.grid(column=1,row=7,columnspan=2)
 
