@@ -24,7 +24,7 @@ def dec2bin (dec, bina):
     return str(dec) + bina
         
 def dec2oct (dec, octa):
-    while dec >= 2:
+    while dec >= 8:
         octa = str(dec%8) + octa
         dec = int(dec/8)
     return str(dec) + octa
