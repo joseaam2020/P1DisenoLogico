@@ -1,6 +1,6 @@
 import tkinter as tk
 
-def table(input_number):
+def table(input_number, tipo):
 
     p1_indices = [0,2,4,6,8,10,12,14]
     p2_indices = [1,2,5,6,9,10,13,14]
@@ -78,6 +78,7 @@ def table(input_number):
                     continue
             else:
                 tk.Label(tabla, text=f"{input_number[j-1]}", borderwidth=0, relief="solid").grid(row=i, column=j)
+
     t1.mainloop()
 def reiniciar_ventana_t1():
     t1.destroy()
