@@ -43,6 +43,7 @@ def serValorT1():
     Coloca los valores de las conversiones en la tabla 1 y entrega la señal a crearSeñal
     """
     hex = numeroBinarioHexadecimal.get()
+    numeroBinarioHexadecimal.delete(0,'end')
     warning = False
     if len(hex) != 3:
         warning = True
@@ -58,13 +59,20 @@ def serValorT1():
         entradaDatoTabla((1,4),octl,matrizT1)
         crearSeñal(Csignal,bin)
 
-        calculate_parity_bits(bin, paridad.get())
-    except: 
+        newBin = bin
+        while (len(newBin) < 12):
+            newBin = "0" + newBin
+        print(newBin)
+        
+        calculate_parity_bits(newBin, paridad.get())
+        
+    except Exception as e: 
+        print(e)
         warning = True
     
     if warning: 
         messagebox.showwarning(title="Error de ingreso", message="Por favor ingresar numero hexadecimal de la forma 000 a FFF")
-    numeroBinarioHexadecimal.delete(0,'end')
+    
     
 #Creacion ventana
 root = tk.Tk()

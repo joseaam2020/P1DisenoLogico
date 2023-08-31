@@ -1,7 +1,21 @@
 import tkinter as tk
+from tkinter import END, messagebox
+
+
+def getDatosError(inputNumber,entry:tk.Entry): 
+    datoError = entry.get()
+    cambios = 0
+    for i in range(len(inputNumber)):
+        if inputNumber[i] != datoError[i]:
+            cambios += 1
+    if cambios > 1: 
+        messagebox.showwarning(title="Error de ingreso", message="Solo puede realizarse cambios en un bit")
+        datoError = inputNumber
+    print(datoError)
+    #Insertar aqui funcion para arreglar paridad
 
 def table(input_number, tipo):
-
+    
     p1_indices = [0,2,4,6,8,10,12,14]
     p2_indices = [1,2,5,6,9,10,13,14]
     p4_indices = [3,4,5,6,11,12,13,14]
@@ -78,7 +92,12 @@ def table(input_number, tipo):
                     continue
             else:
                 tk.Label(tabla, text=f"{input_number[j-1]}", borderwidth=0, relief="solid").grid(row=i, column=j)
-
+    
+    Ecambio = tk.Entry(ventana,width=100)
+    Bcambio = tk.Button(ventana, text="Cambiar un bit",command=lambda: getDatosError(input_number,Ecambio))
+    Ecambio.insert(0,input_number)
+    Ecambio.pack()
+    Bcambio.pack()
     t1.mainloop()
 def reiniciar_ventana_t1():
     t1.destroy()
