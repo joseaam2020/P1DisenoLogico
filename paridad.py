@@ -1,6 +1,7 @@
-from tabla import *
-
-
+def inverter(paridades):
+    for i in range(len(paridades)):
+        paridades[i] = 1 - paridades[i]
+    return paridades
 def cambio_bit(binario, posicion):
     
     binstring = str(binario)
@@ -21,10 +22,11 @@ def calculate_parity_bits(input_string, paridad = 2):
     # Si selecciona paridad impar
     
     if paridad == 1:
-        p1 = 1 - p1
-        p2 = 1 - p2
-        p3 = 1 - p3
-        p4 = 1 - p4
+        lista = inverter([p1,p2,p3,p4])
+        p1 = lista[0]
+        p2 = lista[1]
+        p3 = lista[2]
+        p4 = lista[4]
 
         
     output_list = [p1,p2, input_list[0], p3]
@@ -38,9 +40,7 @@ def calculate_parity_bits(input_string, paridad = 2):
     encoded_string = [str(i) for i in output_list]
     encoded_string = "".join(encoded_string)
     
-    table(encoded_string)
-    
-    return None 
+    return encoded_string
 
 
                     

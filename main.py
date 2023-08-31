@@ -2,7 +2,10 @@ import tkinter as tk
 from tkinter import END, messagebox
 from basesnum import *
 from paridad import *
+from tabla import *
 from signalNRZI import *
+
+final_string = ""
 
 def iniciarTabla(dimensiones,tabla):
     """
@@ -45,6 +48,7 @@ def serValorT1():
     hex = numeroBinarioHexadecimal.get()
     numeroBinarioHexadecimal.delete(0,'end')
     warning = False
+    print(len(hex))
     if len(hex) != 3:
         warning = True
     try: 
@@ -58,13 +62,16 @@ def serValorT1():
         entradaDatoTabla((1,3),bin,matrizT1)
         entradaDatoTabla((1,4),octl,matrizT1)
         crearSeñal(Csignal,bin)
-
+        
+        global final_string
         newBin = bin
         while (len(newBin) < 12):
             newBin = "0" + newBin
         print(newBin)
         
-        calculate_parity_bits(newBin, paridad.get())
+        final_string = calculate_parity_bits(bin, paridad.get())
+        table(final_string)
+        
         
     except Exception as e: 
         print(e)
@@ -117,6 +124,13 @@ Rparpar = tk.Radiobutton(root, text="Paridad par", variable=paridad, value=2)
 Rparimpar = tk.Radiobutton(root, text="Paridad impar", variable=paridad, value=1)
 Rparpar.grid(column=1,row=6,columnspan=2)
 Rparimpar.grid(column=1,row=7,columnspan=2)
+
+Ecambio = tk.Entry(root,width=100)
+Bcambio = tk.Button(root, text="Cambiar un bit",command=lambda:table(final_string, "error", calculate_parity_bits(Ecambio.get(), paridad.get())))
+#Ecambio.insert(0,bin)
+Ecambio.grid(column=0, row=8)
+Bcambio.grid(column=2,row=8)
+
 
 
 root.mainloop()

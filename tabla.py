@@ -14,7 +14,7 @@ def getDatosError(inputNumber,entry:tk.Entry):
     print(datoError)
     #Insertar aqui funcion para arreglar paridad
 
-def table(input_number, tipo):
+def table(input_number, tipo ="paridad", bit_change_num = 0):
     
     p1_indices = [0,2,4,6,8,10,12,14]
     p2_indices = [1,2,5,6,9,10,13,14]
@@ -31,6 +31,7 @@ def table(input_number, tipo):
     tabla.pack()
 
     # Crear los encabezados de columna
+    encabezados_error = ["Prueba", "Bit"]
     encabezados = ["", "p1", "p2", "d1", "p3", "d2", "d3", "d4", "p4", "d5", "d6", "d7", "d8", "d9", "d10", "d11", "d12"]
     datos = ["","Sin paridad", "p1", "p2", "p3", "p4", "Con Paridad"]
 
@@ -92,18 +93,27 @@ def table(input_number, tipo):
                     continue
             else:
                 tk.Label(tabla, text=f"{input_number[j-1]}", borderwidth=0, relief="solid").grid(row=i, column=j)
-    
-    Ecambio = tk.Entry(ventana,width=100)
-    Bcambio = tk.Button(ventana, text="Cambiar un bit",command=lambda: getDatosError(input_number,Ecambio))
-    Ecambio.insert(0,input_number)
-    Ecambio.pack()
-    Bcambio.pack()
+        if tipo == 'error':
+            for j in range(17,19):
+                if i == 0:
+                    tk.Label(tabla, text=encabezados_error[j-17], font="Helvetica 13 bold", borderwidth=1, relief="solid", width=10, height=1).grid(row=i, column=j)
+                elif i == 1:
+                    continue
+                else:
+                    idx = int(((j-16) * (2 ** (i-2)))) - 1
+                    if j == 17:
+                        if input_number[idx] == bit_change_num[idx]:
+                            tk.Label(tabla, text="Correcto", font="Helvetica 13", borderwidth=1, relief="solid", width=10, height=1).grid(row=i, column=j)
+                        else:
+                            tk.Label(tabla, text="Error", font="Helvetica 13", borderwidth=1, relief="solid", width=10, height=1).grid(row=i, column=j)
+                            tk.Label(tabla, text=bit_change_num[idx], font="Helvetica 13 bold", borderwidth=1, relief="solid", width=5, height=1).grid(row=i, column=idx+1)
+
+                    if j == 18:
+                        tk.Label(tabla, text=str(input_number[idx]), font="Helvetica 13", borderwidth=1, relief="solid", width=10, height=1).grid(row=i, column=j)
     t1.mainloop()
 def reiniciar_ventana_t1():
     t1.destroy()
                 
-
-
 
 
 
